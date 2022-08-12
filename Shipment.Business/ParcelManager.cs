@@ -102,7 +102,9 @@ namespace Shipment.Business
 
         private Task<List<Parcel>> GetParcelList()
         {
-            return _memoryManager.GetAsync<List<Parcel>>(ConstVariables.PARCEL_LIST);
+            var list= _memoryManager.GetAsync<List<Parcel>>(ConstVariables.PARCEL_LIST);
+            if (list.Result == null) return Task.FromResult(new List<Parcel>());
+            return list;
         }
 
         private Task DeleteParcel(int id)
