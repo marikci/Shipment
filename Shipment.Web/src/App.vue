@@ -1,47 +1,30 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <div>
+    <b-container class="bv-example-row">
+      <b-row>
+        <b-col cols="3"><b>Parcels</b> &nbsp; <AddNewParcel></AddNewParcel>
+        </b-col>
+        <b-col></b-col>
+        <b-col></b-col>
+        <b-col></b-col>
+      </b-row>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+      <b-row class="text-center">
+        <b-col cols="12">
+          <ParcelsList></ParcelsList>
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
+<script>
+import ParcelsList from "./components/parceListComponent.vue";
+import AddNewParcel from "./components/addNewComponent.vue";
+export default {
+  components: {
+    ParcelsList,
+    AddNewParcel,
+  },
+};
+</script>
+<style></style>
