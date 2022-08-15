@@ -52,12 +52,12 @@ namespace Shipment.Business
             }
         }
 
-        public async Task Save(SaveParcelDto parcelDto)
+        public async Task<Parcel> Save(SaveParcelDto parcelDto)
         {
             try
             {
                 var parcel = _mapper.Map<Parcel>(parcelDto);
-                await SaveParcel(parcel);
+                return await SaveParcel(parcel);
             }
             catch (Exception ex)
             {
@@ -100,35 +100,50 @@ namespace Shipment.Business
             return parcelList.FirstOrDefault(x => x.Id == id);
         }
 
-        private Task<List<Parcel>> GetParcelList()
+        private async Task<List<Parcel>> GetParcelList()
         {
-            var list= _memoryManager.GetAsync<List<Parcel>>(ConstVariables.PARCEL_LIST);
-            if (list.Result == null) return Task.FromResult(new List<Parcel>());
+            var list= await _memoryManager.GetAsync<List<Parcel>>(ConstVariables.PARCEL_LIST);
+            if (list == null) return new List<Parcel>();
             return list;
         }
 
-        private Task DeleteParcel(int id)
+        private async Task DeleteParcel(int id)
         {
-            var parcelList = GetParcelList().Result;
-            return _memoryManager.SetAsync(ConstVariables.PARCEL_LIST, parcelList.RemoveAll(x => x.Id == id));
+            var parcelList = await GetParcelList();
+            parcelList.RemoveAll(x => x.Id == id);
+            await  _memoryManager.SetAsync(ConstVariables.PARCEL_LIST, parcelList);
         }
 
-        private Task SaveParcel(Parcel parcel)
+        private async Task<Parcel> SaveParcel(Parcel parcel)
         {
-            var parcelList = GetParcelList().Result;
+            var parcelList = await GetParcelList();
+            parcel.Id = await GetMaxIdAsync();
             parcelList.Add(parcel);
-            return _memoryManager.SetAsync(ConstVariables.PARCEL_LIST, parcelList);
+            await _memoryManager.SetAsync(ConstVariables.PARCEL_LIST, parcelList);
+            return parcel;
         }
 
-        private Task UpdateParcel(Parcel parcel)
+        private async Task<int> GetMaxIdAsync()
         {
-            var parcelList = GetParcelList().Result;
-            var toUpdate = parcelList.SingleOrDefault(x => x.Id == parcel.Id);
-            if (toUpdate != null)
+            var parcelList = await GetParcelList();
+
+            if (!parcelList.Any())
             {
-                toUpdate = parcel;
+                return 1;
             }
-            return _memoryManager.SetAsync(ConstVariables.PARCEL_LIST, parcelList);
+     
+            return parcelList.Max(x => x.Id) + 1;
+        }
+
+        private async Task UpdateParcel(Parcel parcel)
+        {
+            var parcelList = await GetParcelList();
+            var index = parcelList.FindIndex(x => x.Id == parcel.Id);
+            if (index >-1)
+            {
+                parcelList[index] = parcel;
+            }
+            await _memoryManager.SetAsync(ConstVariables.PARCEL_LIST, parcelList);
         }
     }
 }

@@ -49,6 +49,16 @@ namespace Shipment.API
 
             });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "MyPolicy",
+                    policy =>
+                    {
+                        policy.AllowAnyHeader().AllowAnyMethod();
+                        policy.WithOrigins("http://127.0.0.1:5173");
+                    });
+            });
+
             services.AddControllers();
         }
 
@@ -61,7 +71,7 @@ namespace Shipment.API
             }
 
             app.UseRouting();
-
+            app.UseCors("MyPolicy");
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

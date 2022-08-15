@@ -34,7 +34,7 @@ namespace Shipment.API.Controllers
 
         // POST api/<ParcelController>
         [HttpPost]
-        public Task Post([FromBody] SaveParcelDto parcel)
+        public Task<Parcel> Post([FromBody] SaveParcelDto parcel)
         {
             return _parcelManager.Save(parcel);
         }

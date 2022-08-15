@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32804.467
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipment.API", "Shipment.API\Shipment.API.csproj", "{BA3AB08A-7F0B-4030-8F32-BEBD23E62143}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shipment.API", "Shipment.API\Shipment.API.csproj", "{BA3AB08A-7F0B-4030-8F32-BEBD23E62143}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipment.Web", "Shipment.Web\Shipment.Web.csproj", "{9D38FA19-A57C-4D2B-938E-0184A3E31105}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shipment.Web", "Shipment.Web\Shipment.Web.csproj", "{9D38FA19-A57C-4D2B-938E-0184A3E31105}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipment.Models", "Shipment.Models\Shipment.Models.csproj", "{1E4281CD-EAB1-4C81-8C46-7063EB233D16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shipment.Models", "Shipment.Models\Shipment.Models.csproj", "{1E4281CD-EAB1-4C81-8C46-7063EB233D16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipment.Business", "Shipment.Business\Shipment.Business.csproj", "{7FA43E30-8BB6-4CD7-A369-69C468757113}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shipment.Business", "Shipment.Business\Shipment.Business.csproj", "{7FA43E30-8BB6-4CD7-A369-69C468757113}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipment.Common", "Shipment.Common\Shipment.Common.csproj", "{8D733AAF-E161-4622-8946-A035BA454F77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shipment.Common", "Shipment.Common\Shipment.Common.csproj", "{8D733AAF-E161-4622-8946-A035BA454F77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

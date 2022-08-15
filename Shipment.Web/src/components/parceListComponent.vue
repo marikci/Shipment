@@ -84,7 +84,7 @@
         <font-awesome-icon
           icon="xmark"
           @click.native="discardData(data)"
-          v-if="parcels[data.items.indexOf(data.item)].newItem"
+          v-if="parcels[data.items.indexOf(data.item)].newItem || parcels[data.items.indexOf(data.item)].edit"
         /> &nbsp;
         <!-- save  -->
         <font-awesome-icon
@@ -165,14 +165,23 @@ export default {
       this.parcels[data.items.indexOf(data.item)].edit = !this.parcels[
         data.items.indexOf(data.item)
       ].edit;
+      var tempData = { ...this.parcels[data.items.indexOf(data.item)] };
+      this.$store.dispatch("addToParcelBag",tempData);
     },
     saveData(data) {
       if(data.item.newItem){
         this.$store.dispatch("saveData",data.item);
+      }else{
+        this.$store.dispatch("updateData",data.item);
       }
     },
     discardData(data) {
-      this.$store.dispatch("discardEditing",data.item.id);
+      var discardData={
+        newItem:data.item.newItem,
+        id:data.item.id,
+        edit:data.item.edit
+      };
+      this.$store.dispatch("discardEditing",discardData);
     },
     askToDeleteData(data){
       this.wantToDeleteId = data.item.id;
@@ -208,5 +217,9 @@ tr,
 td,
 th {
   text-align: left;
+}
+.svg-inline--fa:hover {
+  color: grey;
+  cursor: pointer;
 }
 </style>

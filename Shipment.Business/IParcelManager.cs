@@ -11,7 +11,7 @@ namespace Shipment.Business
     {
         Task<GetParcelDto> Get(int id);
         Task<List<GetParcelDto>> GetList();
-        Task Save(SaveParcelDto parcelDto);
+        Task<Parcel> Save(SaveParcelDto parcelDto);
         Task Update(UpdateParcelDto parcelDto);
         Task Delete(int id);
     }
