@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Shipment.Models;
 using Shipment.Models.Parcel;
 
 namespace Shipment.Common

@@ -5,16 +5,21 @@ export const parcelStore = {
     newParcelIds: [0],
     showErrorMessage: false,
     errorMessage: null,
-    editParcelBag: []
+    editParcelBag: [],
+    showLoading: false
   }),
   getters: {
     parcels: state => state.parcels,
     showErrorMessage: state => state.showErrorMessage,
     errorMessage: state => state.errorMessage,
     editParcelBag: state => state.editParcelBag,
+    showLoading: state => state.showLoading,
 
   },
   mutations: {
+    SET_LOADING(state, show) {
+      state.showLoading = show;
+    },
     ADD_TO_PARCEL_BAG(state, parcel) {
       state.editParcelBag.push(parcel);
     },
@@ -85,21 +90,25 @@ export const parcelStore = {
       commit('REMOVE_FROM_PARCEL_BAG', id);
     },
     loadParcels({ commit }) {
-      console.log(import.meta.env.VITE_BASE_URL);
+      commit('SET_LOADING', true);
       axiosService.get("api/parcel").then(r => {
-        console.log(r.data);
+        commit('SET_LOADING', false);
         commit('SET_PARCELS', r.data);
       }).catch((err) => {
         console.error(err);
+        commit('SET_LOADING', false);
       });
     },
     addNewRow({ commit }) {
       commit('ADD_NEW_ROW');
     },
     deleteData({ commit, dispatch }, id) {
+      commit('SET_LOADING', true);
       axiosService.delete("api/parcel/" + id).then(r => {
         commit('REMOVE_PARCEL', id);
+        commit('SET_LOADING', false);
       }).catch((err) => {
+        commit('SET_LOADING', false);
         console.error(err);
         var message = {
           showErrorMessage: true,
@@ -116,11 +125,14 @@ export const parcelStore = {
         oldId: parcel.id,
         data: parcel
       };
+      commit('SET_LOADING', true);
 
       axiosService.post("api/parcel", parcel).then(r => {
+        commit('SET_LOADING', false);
         data.data = r.data;
         commit('SAVE_PARCEL', data);
       }).catch((err) => {
+        commit('SET_LOADING', false);
         console.error(err);
         var message = {
           showErrorMessage: true,
@@ -130,10 +142,13 @@ export const parcelStore = {
       });
     },
     updateData({ commit, dispatch }, parcel) {
+      commit('SET_LOADING', true);
 
       axiosService.put("api/parcel", parcel).then(r => {
+        commit('SET_LOADING', false);
         commit('DISCARD_EDIT_MODE', parcel.id);
       }).catch((err) => {
+        commit('SET_LOADING', false);
         console.error(err);
         var message = {
           showErrorMessage: true,

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Shipment.Business;
 using Shipment.Models.Parcel;
@@ -18,39 +17,34 @@ namespace Shipment.API.Controllers
             _parcelManager = parcelManager;
         }
 
-        // GET: api/<ParcelController>
         [HttpGet]
-        public Task<List<GetParcelDto>> Get()
+        public List<GetParcelDto> Get()
         {
             return _parcelManager.GetList();
         }
 
-        // GET api/<ParcelController>/5
         [HttpGet("{id}")]
-        public Task<GetParcelDto> Get(int id)
+        public GetParcelDto Get(int id)
         {
             return _parcelManager.Get(id);
         }
 
-        // POST api/<ParcelController>
         [HttpPost]
-        public Task<Parcel> Post([FromBody] SaveParcelDto parcel)
+        public Parcel Post([FromBody] SaveParcelDto parcel)
         {
             return _parcelManager.Save(parcel);
         }
 
-        // PUT api/<ParcelController>/5
         [HttpPut]
-        public Task Put([FromBody] UpdateParcelDto parcel)
+        public void Put([FromBody] UpdateParcelDto parcel)
         {
-            return _parcelManager.Update(parcel);
+            _parcelManager.Update(parcel);
         }
 
-        // DELETE api/<ParcelController>/5
         [HttpDelete("{id}")]
-        public Task Delete(int id)
+        public void Delete(int id)
         {
-            return _parcelManager.Delete(id);
+            _parcelManager.Delete(id);
         }
     }
 }

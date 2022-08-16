@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Shipment.Common\Shipment.Common.csproj" />
+    <ProjectReference Include="..\Shipment.Core\Shipment.Core.csproj" />
     <ProjectReference Include="..\Shipment.Models\Shipment.Models.csproj" />
   </ItemGroup>
 
